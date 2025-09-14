@@ -56,8 +56,9 @@ class User:
         if not self.can_borrow_more():
             return None
 
-        current_time = TimeManagement.to_get_borrowed_date()
-        due_date = TimeManagement().to_get_overdue_date(self._max_borrow_days)
+        time_ = TimeManagement()
+        current_time = time_.to_get_borrowed_date()
+        due_date = time_.to_get_overdue_date(self._max_borrow_days)
 
         record = BorrowRecord(isbn, current_time, due_date)
 
@@ -67,7 +68,8 @@ class User:
         return record
 
     def return_book(self, isbn):
-        current_time = TimeManagement.to_get_borrowed_date()
+        time_ = TimeManagement()
+        current_time = time_.to_get_borrowed_date()
 
         for record in self._borrowed_books:
             if record.book_isbn == isbn and not record.returned:
